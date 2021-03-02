@@ -9,7 +9,9 @@
 	<name>hello-java11</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.version>11</java.version>
 	</properties>
 
 <!-- TODO you should configure the compiler plugin! (use release tag or source/target tags)
@@ -17,7 +19,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				
+
 			</plugin>
 		</plugins>
 	</build>
