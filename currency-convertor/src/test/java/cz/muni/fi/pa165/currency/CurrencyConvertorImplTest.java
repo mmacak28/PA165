@@ -1,29 +1,54 @@
 package cz.muni.fi.pa165.currency;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.Currency;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 
 public class CurrencyConvertorImplTest {
 
+    private static final Currency EUR = Currency.getInstance("EUR");
+    private static final Currency CZK = Currency.getInstance("CZK");
+
+    @Mock
+    ExchangeRateTable exchangeRateTableMock;
+    CurrencyConvertor currencyConvertor;
+
+    @Before
+    public void init() throws ExternalServiceFailureException{
+        MockitoAnnotations.initMocks(this);
+        currencyConvertor = new CurrencyConvertorImpl(exchangeRateTableMock);
+        assertNotNull(exchangeRateTableMock);
+        assertNotNull(currencyConvertor);
+        when(exchangeRateTableMock.getExchangeRate(EUR,CZK)).thenReturn(new BigDecimal(25));
+    }
+
     @Test
-    public void testConvert() {
-        // Don't forget to test border values and proper rounding.
-        fail("Test is not implemented yet.");
+    public void testConvert() throws ExternalServiceFailureException{
+        assertEquals(currencyConvertor.convert(EUR,CZK,new BigDecimal(100)), new BigDecimal(2500));
     }
 
     @Test
     public void testConvertWithNullSourceCurrency() {
-        fail("Test is not implemented yet.");
+        assertEquals(currencyConvertor.convert(null,CZK, new BigDecimal(100)), null);
     }
 
     @Test
     public void testConvertWithNullTargetCurrency() {
-        fail("Test is not implemented yet.");
+        assertEquals(currencyConvertor.convert(EUR, null, new BigDecimal(100)), null);
     }
 
     @Test
     public void testConvertWithNullSourceAmount() {
-        fail("Test is not implemented yet.");
+        assertEquals(currencyConvertor.convert(EUR, CZK, null), null);
     }
 
     @Test
