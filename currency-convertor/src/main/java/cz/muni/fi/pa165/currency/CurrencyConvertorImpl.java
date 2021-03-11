@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.currency;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.util.Currency;
 
@@ -12,7 +15,17 @@ import java.util.Currency;
 public class CurrencyConvertorImpl implements CurrencyConvertor {
 
     private final ExchangeRateTable exchangeRateTable;
-    //private final Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
+    private void error(String msg, ExternalServiceFailureException t){
+        logger.error(msg,t);
+    };
+    private void warning(String msg){
+        logger.warn(msg);
+    }
+
+    private void trace(String msg){
+        logger.trace(msg);
+    }
 
     public CurrencyConvertorImpl(ExchangeRateTable exchangeRateTable) {
         this.exchangeRateTable = exchangeRateTable;

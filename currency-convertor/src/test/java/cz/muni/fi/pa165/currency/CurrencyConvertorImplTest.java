@@ -58,6 +58,7 @@ public class CurrencyConvertorImplTest {
 
     @Test
     public void testConvertWithExternalServiceFailure() {
+
         fail("Test is not implemented yet.");
     }
 
